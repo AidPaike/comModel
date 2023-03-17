@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+
+  comModel_service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: commodel_image
+    security_opt:
+      - seccomp:unconfined
+    container_name: comModel_container
+    #保持容器运行
+    tty: true
+    restart: always
+    volumes:
+      - ./sharedir:/sharedir
+    environment:
+      # 指定时区
+      - TZ="Asia/Shanghai"
+#    network_mode: "host"
+    ports:
+      - "10343:10343"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [ gpu ]

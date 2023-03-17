@@ -1,0 +1,14 @@
+{
+    "seed":42,
+    "model_name_or_path": "/root/comModel/data/train_model/distilgpt2",
+    "train_file": "/root/comModel/dataset/train_data_bos.txt",
+    "per_device_train_batch_size": 2,
+    "do_train": true,
+    "do_eval": false,
+    "output_dir": "/root/comModel/data/Finetune_model/Finetune_distilgpt2",
+    "resume_from_checkpoint":null,
+    "save_steps": 10000,
+    "num_train_epochs": 50,
+    "overwrite_output_dir": false,
+    "preprocessing_num_workers":16
+}

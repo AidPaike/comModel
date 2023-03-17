@@ -1,25 +1,3 @@
-#!/usr/bin/env python
-# coding=utf-8
-# Copyright 2020 The HuggingFace Inc. team. All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-"""
-Fine-tuning the library models for causal language modeling (GPT, GPT-2, CTRL, ...) on a text file or a dataset.
-Here is the full list of checkpoints on the hub that can be fine-tuned by this script:
-https://huggingface.co/models?filter=text-generation
-"""
-# You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
-
 import logging
 import math
 import os
@@ -31,7 +9,7 @@ from typing import Optional
 import datasets
 from datasets import load_dataset, load_metric
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 
 import transformers
 from transformers import (
@@ -52,18 +30,15 @@ from transformers.trainer_utils import get_last_checkpoint
 from transformers.utils import check_min_version
 from transformers.utils.versions import require_version
 
-
-# Will error if the minimal version of Transformers is not installed. Remove at your own risks.
+# 对基础环境进行检查
 check_min_version("4.19.0.dev0")
-
 require_version("datasets>=1.8.0", "To fix: pip install -r examples/pytorch/language-modeling/requirements.txt")
 
+# log
 logger = logging.getLogger(__name__)
-
 
 MODEL_CONFIG_CLASSES = list(MODEL_FOR_CAUSAL_LM_MAPPING.keys())
 MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
-
 
 @dataclass
 class ModelArguments:
@@ -190,12 +165,13 @@ class DataTrainingArguments:
                 extension = self.validation_file.split(".")[-1]
                 assert extension in ["csv", "json", "txt"], "`validation_file` should be a csv, a json or a txt file."
 
-
 def main():
     # See all possible arguments in src/transformers/training_args.py
     # or by passing the --help flag to this script.
     # We now keep distinct sets of args, for a cleaner separation of concerns.
-
+    # 为了扩展性  就先把所有的参数都保存了
+    
+    # HfArgumentParser是将不同类的参数都整合到一起
     parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments))
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
         # If we pass only one argument to the script and it's the path to a json file,
@@ -236,12 +212,12 @@ def main():
             )
         elif last_checkpoint is not None and training_args.resume_from_checkpoint is None:
             logger.info(
-                f"Checkpoint detected, resuming training at {last_checkpoint}. To avoid this behavior, change "
+                f"Checkpoint detected, resuming training a t {last_checkpoint}. To avoid this behavior, change "
                 "the `--output_dir` or add `--overwrite_output_dir` to train from scratch."
             )
 
     # Set seed before initializing model.
-    # set_seed(training_args.seed)
+    set_seed(training_args.seed)
 
     # Get the datasets: you can either provide your own CSV/JSON/TXT training and evaluation files (see below)
     # or just provide the name of one of the public datasets available on the hub at https://huggingface.co/datasets/
@@ -449,6 +425,7 @@ def main():
         lm_datasets = tokenized_datasets.map(
             group_texts,
             batched=True,
+            batch_size=1000,
             num_proc=data_args.preprocessing_num_workers,
             load_from_cache_file=not data_args.overwrite_cache,
             desc=f"Grouping texts in chunks of {block_size}",
@@ -549,16 +526,12 @@ def main():
         else:
             kwargs["dataset"] = data_args.dataset_name
 
+    # 上传hub，几乎不用
     if training_args.push_to_hub:
         trainer.push_to_hub(**kwargs)
     else:
         trainer.create_model_card(**kwargs)
-
-
-def _mp_fn(index):
-    # For xla_spawn (TPUs)
-    main()
-
-
+        
+        
 if __name__ == "__main__":
     main()
