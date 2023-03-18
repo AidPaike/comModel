@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="10.15.0.26:10343模型" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="10.15.0.26:10343模型">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root/comModel" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/root/comModel/workspace/temp/coverage_explore" />
+            <excludedPath path="/root/comModel/data/Finetune_model/Finetune_distilgpt2" />
+            <excludedPath path="/root/comModel/data/Finetune_model/Finetune_gpt2" />
+            <excludedPath path="/root/comModel/data/coverage/Finetune_distilgpt2_checkpoint-100000.profdata" />
+            <excludedPath path="/root/comModel/data/coverage/Finetune_distilgpt2_checkpoint-110000.profdata" />
+            <excludedPath path="/root/comModel/data/coverage/Finetune_distilgpt2_checkpoint-120000.profdata" />
+            <excludedPath path="/root/comModel/data/coverage/Finetune_distilgpt2_checkpoint-130000.profdata" />
+            <excludedPath path="/root/comModel/data/coverage/Finetune_distilgpt2_checkpoint-140000.profdata" />
+            <excludedPath path="/root/comModel/data/coverage/Finetune_distilgpt2_checkpoint-150000.profdata" />
+            <excludedPath path="/root/comModel/data/coverage/Finetune_distilgpt2_checkpoint-160000.profdata" />
+            <excludedPath path="/root/comModel/data/coverage" />
+            <excludedPath path="/root/comModel/data/Finetune_model" />
+            <excludedPath path="/root/comModel/data/train_model" />
+            <excludedPath path="/root/comModel/data" />
+            <excludedPath path="/root/comModel/workspace/mjk" />
+            <excludedPath path="/root/comModel/model" />
+            <excludedPath path="/root/comModel/sharedir" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="nisl812@10.15.0.26:22 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/disk4T/nisl812/fzy/comModel" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@10.15.0.26:10349 password">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@10.15.0.26:10349 test">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root/comModel" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
