@@ -16,7 +16,7 @@ RUN \
 RUN ln -s /usr/bin/python3.8 /usr/bin/python
 RUN python -m pip install --no-cache-dir --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple
 RUN pip install pyyaml pymysql django django-tables2 -i https://pypi.tuna.tsinghua.edu.cn/simple
-RUN pip install torch accelerate protobuf datasets "chardet<3.1.0" "urllib3<=1.25" "sentencepiece<0.1.92" sklearn transformers -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip install torch accelerate protobuf datasets "chardet<3.1.0" "urllib3<=1.25" "sentencepiece<0.1.92" sklearn transformers==4.21.3 -i https://pypi.tuna.tsinghua.edu.cn/simple
 RUN sed -ie 's/# zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/g' /etc/locale.gen
 RUN locale-gen
 ENV LANG zh_CN.UTF-8
@@ -35,7 +35,7 @@ LABEL key="value49"
 
 #拷贝引擎
 ADD dataset/jsvu.tar.gz /root/
-
+COPY . $COMMODEL
 WORKDIR $COMMODEL
 
 #开启ssh服务

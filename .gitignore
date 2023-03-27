@@ -4,3 +4,4 @@
 /workspace/train_model/report/
 workspace/train_model/distilgpt2_finetune.out
 workspace/train_model/gpt2_finetune.out
+workspace/engineCoverage/report/

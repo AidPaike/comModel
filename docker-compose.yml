@@ -14,7 +14,7 @@ services:
     tty: true
     restart: always
     volumes:
-      - ./sharedir:/sharedir
+      - ./data:/data
     environment:
       # 指定时区
       - TZ="Asia/Shanghai"
